@@ -3,20 +3,23 @@
 
     <!-- Page d'authentification -->
     <string name="auth_page_title">Bienvenue</string>
-    <string name="auth_page_forget_pass">Mot de Passe outblié?</string>
+    <string name="auth_page_forget_pass"><u>Mot de Passe outblié?</u></string>
+    <string name="auth_page_email">Email :</string>
+    <string name="auth_page_password">Mot de Passe :</string>
     <string name="auth_page_connect_btn">Se connecter</string>
     <string name="auth_page_create_acc_btn">Créer un compte</string>
 
     <!-- Page creation de compte -->
-    <string name="creation_page_title">Créer un Compte</string>
-    <string name="creation_page_desc">Remplissez les informations ci-dessous</string>
+    <string name="creation_page_title">Créer un compte</string>
+    <string name="creation_page_desc">L\'aventure de la gestion de votre budget commence maintenant. Remplissez les informations ci-dessous :</string>
     <string name="creation_page_condition">J\'accepte les conditions d\'utilisation</string>
-    <string name="creation_page_create_btn">Créer mon Compte</string>
+    <string name="creation_page_create_btn">Créer mon compte</string>
+    <string name="creation_page_acc_exist">Vous avez déja un compte ? <u>Connectez-vous</u></string>
 
     <!-- formulaire  d'authentifiacation / cration du compte -->
     <string name="form_cell_firstname">Prénom</string>
     <string name="form_cell_familyname">Nom</string>
-    <string name="form_cell_email">Email</string>
+    <string name="form_cell_email">Entrer votre email</string>
     <string name="form_cell_password">Mot de passe</string>
     <string name="form_cell_passconfirm">Confirmer le mot de passe</string>
 </resources>

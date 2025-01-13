@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginTop="40dp"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="30dp"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:text="@string/creation_page_title" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/creation_page_desc"
+        android:gravity="center"
+        android:textSize="12dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress2"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/form_cell_firstname"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress3"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/form_cell_familyname"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress4"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/form_cell_email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextNumberPassword2"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/form_cell_password"
+        android:inputType="numberPassword"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextNumberPassword3"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/form_cell_passconfirm"
+        android:inputType="numberPassword"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/creation_page_condition"
+        android:layout_marginBottom="10dp"
+        style="@style/DefaultTextStyle"
+        />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="@string/creation_page_create_btn"
+        android:textColor="@color/white"
+        android:height="60dp"
+        style="@style/DefaultTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/anchorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/creation_page_acc_exist"
+        android:gravity="end"
+        style="@style/DefaultTextStyle"
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+</LinearLayout>
