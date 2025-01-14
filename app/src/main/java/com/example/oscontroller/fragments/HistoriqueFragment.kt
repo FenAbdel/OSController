@@ -13,6 +13,6 @@ class HistoriqueFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(R.layout.activity_historique, container, false)
+        return inflater?.inflate(R.layout.hystorique_activity, container, false)
     }
 }

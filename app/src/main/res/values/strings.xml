@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">OvS Controller</string>
     
     <string name="bottom_home_item">Acceuil</string>
@@ -41,5 +42,39 @@
         <item>EUR (€)</item>
         <item>USD ($)</item>
         <item>GBP (£)</item>
+    </string-array>
+
+    <!--main page-->
+    <string name="main_page_title">Solde actuel</string>
+    <string name="main_page_button1">Ajouter un dépense</string>
+    <string name="main_page_button2">Ajouter un revenu</string>
+    <string name="main_page_subtitle_1">Transactions récentes</string>
+
+
+
+    <string-array name="expense_categories">
+        <item>Alimentation</item>
+        <item>Bar</item>
+        <item>Restaurant</item>
+        <item>Virement</item>
+        <item>Transport</item>
+        <item>Shopping</item>
+        <item>Loisirs</item>
+        <item>Santé</item>
+        <item>Factures</item>
+        <item>Autres</item>
+    </string-array>
+
+
+    <string-array name="income_categories">
+        <item>Salaire</item>
+        <item>Prime</item>
+        <item>Virement Reçu</item>
+        <item>Remboursement</item>
+        <item>Allocation</item>
+        <item>Freelance</item>
+        <item>Investissement</item>
+        <item>Vente</item>
+        <item>Autres</item>
     </string-array>
 </resources>
