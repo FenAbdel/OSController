@@ -12,10 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, AuthFragment())
-        transaction.addToBackStack(null)
-        transaction.commit()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, AuthFragment())
+            transaction.addToBackStack(null)
+            transaction.commit()
 
 
     }

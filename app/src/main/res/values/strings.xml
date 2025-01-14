@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">OvS Controller</string>
+    
+    <string name="bottom_home_item">Acceuil</string>
+    <string name="bottom_history_item">Historique</string>
+    <string name="bottom_stat_item">Statistiques</string>
+    <string name="bottom_param_item">Paramétre</string>
 
     <!-- Page d'authentification -->
     <string name="auth_page_title">Bienvenue</string>
@@ -22,4 +27,19 @@
     <string name="form_cell_email">Entrer votre email</string>
     <string name="form_cell_password">Mot de passe</string>
     <string name="form_cell_passconfirm">Confirmer le mot de passe</string>
+
+
+    <string name="settings_page_title">Paramètres</string>
+    <string name="settings_page_budget_field">Budget mensuel</string>
+    <string name="settings_page_device">Devise</string>
+    <string name="settings_page_gerer_button">Gérer les catégories personnalisées</string>
+    <string name="settings_page_notification">Notifications</string>
+    <string name="settings_page_signout_button">Déconnexion</string>
+    <string name="settings_page_save_button">Exporter les données</string>
+
+    <string-array name="device">
+        <item>EUR (€)</item>
+        <item>USD ($)</item>
+        <item>GBP (£)</item>
+    </string-array>
 </resources>

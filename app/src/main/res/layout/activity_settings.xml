@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="30dp">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_page_title"
+        style="@style/TitleTextStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="199dp"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_page_budget_field"
+            style="@style/DefaultTextStyle"/>
+
+        <EditText
+            android:id="@+id/budgetmensuel"
+            style="@style/FormTextStyle"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border_selector"
+            android:ems="10"
+            android:inputType="text"
+            android:padding="10dp"
+            android:hint="2000"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+    >
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_page_device"
+            style="@style/DefaultTextStyle"/>
+     <Spinner
+         android:id="@+id/devise_spinner"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         style="@style/DefaultTextStyle"
+         />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/gestion_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_page_gerer_button"
+        android:drawableStart="@drawable/ic_plus"
+        android:background="@drawable/custom_blue_button_background"
+        style="@style/DefaultTextStyle"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:textColor="@color/white"
+        android:drawableTint="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            style="@style/DefaultTextStyle"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_page_notification" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_notification"
+            android:background="@color/white"
+            />
+
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/save_data_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_page_save_button"
+        android:drawableStart="@drawable/ic_save"
+        android:background="@drawable/custom_green_button_background"
+        style="@style/DefaultTextStyle"
+        android:paddingEnd="40dp"
+        android:paddingStart="80dp"
+        android:textColor="@color/white"
+        android:drawableTint="@color/white"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="20dp"
+        />
+    <Button
+        android:id="@+id/signout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_page_signout_button"
+        android:drawableStart="@drawable/ic_signout"
+        android:background="@drawable/custom_red_button_background"
+        style="@style/DefaultTextStyle"
+        android:paddingEnd="80dp"
+        android:paddingStart="80dp"
+        android:textColor="@color/white"
+        android:drawableTint="@color/white"
+        android:layout_marginBottom="20dp"
+        />
+
+</LinearLayout>

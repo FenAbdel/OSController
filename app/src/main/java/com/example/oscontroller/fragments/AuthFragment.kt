@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.example.oscontroller.R
 import com.example.oscontroller.SignUp
+import com.example.oscontroller.TamplateActivity
 
 class AuthFragment : Fragment() {
 
@@ -27,5 +28,13 @@ class AuthFragment : Fragment() {
             val intent = Intent(requireContext(), SignUp::class.java)
             startActivity(intent)
         }
+
+        val signipButton = view.findViewById<Button>(R.id.signinButton)
+        signipButton.setOnClickListener {
+            val intent = Intent(requireContext(), TamplateActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
