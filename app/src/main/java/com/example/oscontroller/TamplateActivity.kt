@@ -43,6 +43,10 @@ class TamplateActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // Load HomeFragment by default
+        loadFragment(HomeFragment())
+        // Set the selected item in bottom navigation to home
+        navigrationView.selectedItemId = R.id.home_page
     }
 
     private fun loadFragment(parametreFragment: Fragment) {

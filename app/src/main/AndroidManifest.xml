@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
-
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
         <activity
             android:name=".TamplateActivity"
             android:exported="false" />

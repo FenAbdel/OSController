@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">OvS Controller</string>
-    
+
     <string name="bottom_home_item">Acceuil</string>
     <string name="bottom_history_item">Historique</string>
     <string name="bottom_stat_item">Statistiques</string>
@@ -49,7 +49,6 @@
     <string name="main_page_button1">Ajouter un dépense</string>
     <string name="main_page_button2">Ajouter un revenu</string>
     <string name="main_page_subtitle_1">Transactions récentes</string>
-
 
 
     <string-array name="expense_categories">
