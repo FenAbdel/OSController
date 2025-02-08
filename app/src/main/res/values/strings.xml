@@ -46,7 +46,7 @@
 
     <!--main page-->
     <string name="main_page_title">Solde actuel</string>
-    <string name="main_page_button1">Ajouter un dépense</string>
+    <string name="main_page_button1">Ajouter une dépense</string>
     <string name="main_page_button2">Ajouter un revenu</string>
     <string name="main_page_subtitle_1">Transactions récentes</string>
 

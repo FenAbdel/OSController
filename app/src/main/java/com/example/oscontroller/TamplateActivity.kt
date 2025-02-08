@@ -31,10 +31,12 @@ class TamplateActivity : AppCompatActivity() {
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+
                 R.id.historic_page -> {
                     loadFragment(HistoriqueFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+
                 R.id.statistics_page -> {
                     loadFragment(StatistiqueFragement())
                     return@setOnNavigationItemSelectedListener true
