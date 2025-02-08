@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:background="#FFFFFF">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-<!-- Frame: Titre avec solde -->
+    <!-- Frame: Titre avec solde -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="111dp"
+        android:layout_height="130dp"
         android:background="#3366FF"
         android:padding="16dp">
 
@@ -18,23 +18,25 @@ android:background="#FFFFFF">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|start"
+            android:layout_marginTop="16dp"
             android:text="@string/main_page_title"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-        />
+            />
 
         <TextView
             android:id="@+id/solde_montant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:text="2 450,75 €"
             android:textColor="#FFFFFF"
             android:textSize="32sp" />
     </FrameLayout>
 
-<!-- Frame: Boutons Ajouter une dépense/revenu -->
+    <!-- Frame: Boutons Ajouter une dépense/revenu -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
@@ -59,51 +61,54 @@ android:background="#FFFFFF">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/green"
+
             android:text="@string/main_page_button2"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-<!-- Frame: Liste des transactions -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/titre_transactions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_page_subtitle_1"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
-
-    <ScrollView
+    <!-- Frame: Liste des transactions -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="374dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
-            android:id="@+id/transactions_layout"
+        <TextView
+            android:id="@+id/titre_transactions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_page_subtitle_1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/transaction_container"
+            android:padding="16dp">
+            <!--android:layout_height="374dp"-->
 
-            <TextView
-                android:id="@+id/empty_message"
+            <LinearLayout
+                android:id="@+id/transaction_items_depense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" "
-                android:textSize="16sp"
-                android:gravity="center"
-                android:padding="8dp" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/empty_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:padding="8dp" />
 
-    </ScrollView>
-</LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
 
 
 
