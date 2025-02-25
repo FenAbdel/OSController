@@ -25,19 +25,22 @@
         android:layout_height="wrap_content"
         android:hint="Type (ex: Salaire, virement)"
         android:inputType="text"
-        android:padding="8dp"
-        android:background="@android:drawable/edit_text"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"
+        style="@style/FormTextStyle"
         android:layout_marginBottom="16dp"/>
 
     <!-- Champ Type avec Spinner -->
+
     <Spinner
         android:id="@+id/spinner_type_revenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:layout_marginBottom="16dp"/>
-
+        android:background="@drawable/custom_spinner_background"
+        android:layout_marginBottom="16dp"
+        android:popupBackground="#FFFFFF"
+        android:spinnerMode="dropdown"/>
 
     <!-- Champ Date -->
     <EditText
@@ -46,8 +49,9 @@
         android:layout_height="wrap_content"
         android:hint="Date (YYYY-MM-DD)"
         android:inputType="date"
-        android:padding="8dp"
-        android:background="@android:drawable/edit_text"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"
+        style="@style/FormTextStyle"
         android:layout_marginBottom="16dp"/>
 
     <!-- Champ Montant -->
@@ -57,8 +61,9 @@
         android:layout_height="wrap_content"
         android:hint="Montant (€)"
         android:inputType="numberDecimal"
-        android:padding="8dp"
-        android:background="@android:drawable/edit_text"
+        android:background="@drawable/edit_text_border_selector"
+        android:padding="12dp"
+        style="@style/FormTextStyle"
         android:layout_marginBottom="16dp"/>
 
     <!-- Bouton Ajouter -->

@@ -159,7 +159,7 @@ class HomeFragment: Fragment() {
                 val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
 
                 titreTextView.text = titre
-                montantTextView.text = "- $montant £"
+                montantTextView.text = "- $montant €"
                 montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
 
                 dateTextView.text = finalDate
@@ -202,6 +202,7 @@ class HomeFragment: Fragment() {
         val spinner = dialogView.findViewById<Spinner>(R.id.spinner_type_revenu)
         ArrayAdapter.createFromResource(
             requireContext(),
+
             R.array.expense_categories,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
@@ -251,7 +252,7 @@ class HomeFragment: Fragment() {
                 val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
 
                 titreTextView.text = titre
-                montantTextView.text = "- $montant £"
+                montantTextView.text = "+ $montant €"
                 montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
 
                 dateTextView.text = finalDate
