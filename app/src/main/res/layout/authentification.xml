@@ -140,15 +140,7 @@
             android:scaleType="fitCenter"
             android:background="@color/white"
             android:src="@drawable/iconlogog"
-            android:layout_marginRight="20dp"/>
-
-        <ImageButton
-            android:id="@+id/facebookSignInButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:src="@drawable/iconlogogf" />
+            />
 
     </LinearLayout>
 

@@ -15,7 +15,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,25 +37,25 @@ android {
     buildFeatures {
         compose = true
     }
-
 }
 
 dependencies {
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("com.facebook.android:facebook-android-sdk:latest.release")
-    implementation ("com.google.firebase:firebase-auth-ktx")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
-
-    implementation ("com.facebook.android:facebook-android-sdk:latest.release")
-
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth")
-    implementation(libs.androidx.core.splashscreen)
+    // Charts
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // Play Services
+    implementation("com.google.android.gms:play-services-auth:21.2.0") // Example
+
+    // Firebase BoM (Version Management)
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+
+    // Use explicit Firebase dependencies with BoM:
+    implementation("com.google.firebase:firebase-auth-ktx") // No version (handled by BoM)
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.firebase:firebase-auth-ktx:22.3.1")
+    // AndroidX
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -69,7 +68,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.firestore.ktx)
+
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

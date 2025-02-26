@@ -41,7 +41,7 @@ class HomeFragment: Fragment() {
     @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        updateBalance()
         // Bouton pour afficher le formulaire de dépense
         val buttonAjouterDepense: Button = view.findViewById(R.id.ajouter_depense)
         buttonAjouterDepense.setOnClickListener {
@@ -52,6 +52,21 @@ class HomeFragment: Fragment() {
         buttonAjouterRevenu.setOnClickListener {
             afficherFormulaireRevenu()
         }
+        getRevenuTransactionsFromFirebase { transactions ->
+            if (transactions != null) {
+                for (transaction in transactions) {
+                    val isA = transaction["is_a"] as? String ?: ""
+
+                    if (isA == "Depence") {
+                        afficherTransactionDepense(transaction)
+                    } else if (isA == "Revenu") {
+                        afficherTransactionRevenu(transaction)
+                    }
+                }
+            } else {
+                Log.e("Firebase", "Failed to fetch transactions")
+            }
+        }
 
     }
     //ading to firestor database
@@ -61,7 +76,8 @@ class HomeFragment: Fragment() {
         val date: String,
         val type: String
     )
-    fun addTransactionToFirebase(title: String, amount: Double, type: String, date: String) {
+
+    fun addRevenuTransactionToFirebase(title: String, amount: Double, type: String, date: String, is_a: String ) {
         val db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -77,7 +93,8 @@ class HomeFragment: Fragment() {
                 "title" to title,
                 "amount" to amount,
                 "date" to finalDate,
-                "type" to type
+                "type" to type,
+                "is_a" to is_a
             )
 
             // Add transaction to the "transactions" subcollection inside the user's document
@@ -91,6 +108,28 @@ class HomeFragment: Fragment() {
                 }
         } ?: Log.e("Firebase", "User not logged in") // Handle case when user is not authenticated
     }
+
+    fun getRevenuTransactionsFromFirebase(onResult: (List<Map<String, Any>>?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        userId?.let { uid ->
+            db.collection("users").document(uid).collection("transactions")
+                .get()
+                .addOnSuccessListener { result ->
+                    val transactions = result.documents.map { it.data ?: emptyMap() }
+                    onResult(transactions) // Return transactions via callback
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("Firebase", "Error fetching transactions: ${exception.message}")
+                    onResult(null) // Return null in case of failure
+                }
+        } ?: run {
+            Log.e("Firebase", "User not logged in")
+            onResult(null)
+        }
+    }
+
 
 
 
@@ -132,6 +171,7 @@ class HomeFragment: Fragment() {
             val montant_i = editMontant.text.toString().toDoubleOrNull()
             val type = spinner.selectedItem.toString()
             var finalDate = date
+            var depense="Depence"
 
             if (finalDate.isNullOrEmpty()) {
                 val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -148,7 +188,7 @@ class HomeFragment: Fragment() {
 
 
 
-                // Charger le layout `transaction_items.xml`
+                // Charger le layout transaction_items.xml
                 val transactionView = LayoutInflater.from(requireContext())
                     .inflate(R.layout.layout_transactions_depence, transactionsLayout, false)
 
@@ -159,7 +199,7 @@ class HomeFragment: Fragment() {
                 val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
 
                 titreTextView.text = titre
-                montantTextView.text = "- $montant €"
+                montantTextView.text = "- $montant £"
                 montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
 
                 dateTextView.text = finalDate
@@ -170,14 +210,15 @@ class HomeFragment: Fragment() {
 
                 // Afficher un message de confirmation
                 Toast.makeText(requireContext(), "Dépense ajoutée : $titre, $type, $date, $montant£", Toast.LENGTH_SHORT).show()
+                updateBalance()
 
                 // Fermer le dialog
                 dialog.dismiss()
                 if (montant_i != null) {
-                    addTransactionToFirebase( titre, montant_i, type, finalDate)
-                }
+                    addRevenuTransactionToFirebase( titre, montant_i, type, finalDate, depense )                }
             } else {
                 Toast.makeText(requireContext(), "Veuillez remplir tous les champs.", Toast.LENGTH_SHORT).show()
+
             }
         }
         buttonAnnuler.setOnClickListener {
@@ -202,8 +243,7 @@ class HomeFragment: Fragment() {
         val spinner = dialogView.findViewById<Spinner>(R.id.spinner_type_revenu)
         ArrayAdapter.createFromResource(
             requireContext(),
-
-            R.array.expense_categories,
+            R.array.income_categories,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -225,6 +265,7 @@ class HomeFragment: Fragment() {
             val montant_i = editMontant.text.toString().toDoubleOrNull()
             val type = spinner.selectedItem.toString()
             var finalDate = date
+            var revenu="Revenu"
 
             if (finalDate.isNullOrEmpty()) {
                 val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -241,7 +282,7 @@ class HomeFragment: Fragment() {
 
 
 
-                // Charger le layout `transaction_items.xml`
+                // Charger le layout transaction_items.xml
                 val transactionView = LayoutInflater.from(requireContext())
                     .inflate(R.layout.layout_transactions_depence, transactionsLayout, false)
 
@@ -252,7 +293,7 @@ class HomeFragment: Fragment() {
                 val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
 
                 titreTextView.text = titre
-                montantTextView.text = "+ $montant €"
+                montantTextView.text = "+ $montant £"
                 montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
 
                 dateTextView.text = finalDate
@@ -263,11 +304,12 @@ class HomeFragment: Fragment() {
 
                 // Afficher un message de confirmation
                 Toast.makeText(requireContext(), "Revenu ajoutée : $titre, $type, $date, $montant£", Toast.LENGTH_SHORT).show()
+                updateBalance()
 
                 // Fermer le dialog
                 dialog.dismiss()
                 if (montant_i != null) {
-                    addTransactionToFirebase( titre, montant_i, type, finalDate)
+                    addRevenuTransactionToFirebase( titre, montant_i, type, finalDate, revenu )
                 }
             } else {
                 Toast.makeText(requireContext(), "Veuillez remplir tous les champs.", Toast.LENGTH_SHORT).show()
@@ -279,6 +321,90 @@ class HomeFragment: Fragment() {
 
         dialog.show()
     }
+    private fun afficherTransactionDepense(transaction: Map<String, Any>) {
+        val titre = transaction["title"] as? String ?: ""
+        val montant = transaction["amount"] as? Double ?: 0.0
+        val date = transaction["date"] as? String ?: ""
+        val type = transaction["type"] as? String ?: ""
+
+        // Use a safe call for the container view
+        val transactionsLayout = view?.findViewById<LinearLayout>(R.id.transaction_items_depense) ?: return
+
+        val transactionView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.layout_transactions_depence, transactionsLayout, false)
+
+        val titreTextView = transactionView.findViewById<TextView>(R.id.transaction_titre)
+        val montantTextView = transactionView.findViewById<TextView>(R.id.transaction_montant)
+        val dateTextView = transactionView.findViewById<TextView>(R.id.transaction_date)
+        val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
+
+        titreTextView.text = titre
+        dateTextView.text = date
+        typeTextView.text = type
+        montantTextView.text = "- $montant £"
+        montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+
+        transactionsLayout.addView(transactionView)
+    }
+
+    private fun afficherTransactionRevenu(transaction: Map<String, Any>) {
+        val titre = transaction["title"] as? String ?: ""
+        val montant = transaction["amount"] as? Double ?: 0.0
+        val date = transaction["date"] as? String ?: ""
+        val type = transaction["type"] as? String ?: ""
+
+        // Use a safe call for the container view
+        val transactionsLayout = view?.findViewById<LinearLayout>(R.id.transaction_items_depense) ?: return
+
+        val transactionView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.layout_transactions_revenu, transactionsLayout, false)
+
+        val titreTextView = transactionView.findViewById<TextView>(R.id.transaction_titre)
+        val montantTextView = transactionView.findViewById<TextView>(R.id.transaction_montant)
+        val dateTextView = transactionView.findViewById<TextView>(R.id.transaction_date)
+        val typeTextView = transactionView.findViewById<TextView>(R.id.transaction_type)
+
+        titreTextView.text = titre
+        dateTextView.text = date
+        typeTextView.text = type
+        montantTextView.text = "+ $montant £"
+        montantTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+
+        transactionsLayout.addView(transactionView)
+    }
+
+    private fun updateBalance() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) return
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(userId).collection("transactions")
+            .get()
+            .addOnSuccessListener { result ->
+                var totalRevenue = 0.0
+                var totalExpense = 0.0
+
+                for (document in result) {
+                    // Utilisation du champ "is_a" pour distinguer revenus et dépenses.
+                    val amount = document.getDouble("amount") ?: 0.0
+                    val type = document.getString("is_a") ?: ""
+                    if (type.equals("Revenu", ignoreCase = true)) {
+                        totalRevenue += amount
+                    } else if (type.equals("Depence", ignoreCase = true)) {
+                        totalExpense += amount
+                    }
+                }
+                val balance = totalRevenue - totalExpense
+                val soldeTextView = view?.findViewById<TextView>(R.id.solde_montant)
+                soldeTextView?.text = String.format(Locale.getDefault(), "%.2f €", balance)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("UpdateBalance", "Erreur lors du chargement des transactions : ${exception.message}")
+            }
+    }
+
+
+
 
 
 

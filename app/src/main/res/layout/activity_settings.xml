@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="100dp"
+    android:layout_marginTop="80dp"
     android:layout_marginEnd="20dp"
     android:layout_marginStart="30dp">
 
@@ -75,32 +75,10 @@
         android:textColor="@color/white"
         android:drawableTint="@color/white"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
 
-        <TextView
-            style="@style/DefaultTextStyle"
-            android:layout_width="267dp"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_page_notification" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_notification"
-            android:background="@color/white"
-            />
-
-
-
-    </LinearLayout>
     <Button
         android:id="@+id/save_data_button"
         android:layout_width="match_parent"
@@ -113,7 +91,7 @@
         android:paddingStart="80dp"
         android:textColor="@color/white"
         android:drawableTint="@color/white"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         />
     <Button

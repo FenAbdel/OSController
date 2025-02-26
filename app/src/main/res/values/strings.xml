@@ -76,4 +76,24 @@
         <item>Vente</item>
         <item>Autres</item>
     </string-array>
+    <string-array name="categories">
+        <item>Alimentation</item>
+        <item>Bar</item>
+        <item>Restaurant</item>
+        <item>Virement</item>
+        <item>Transport</item>
+        <item>Shopping</item>
+        <item>Loisirs</item>
+        <item>Santé</item>
+        <item>Factures</item>
+        <item>Salaire</item>
+        <item>Prime</item>
+        <item>Virement Reçu</item>
+        <item>Remboursement</item>
+        <item>Allocation</item>
+        <item>Freelance</item>
+        <item>Investissement</item>
+        <item>Vente</item>
+    </string-array>
 </resources>
+

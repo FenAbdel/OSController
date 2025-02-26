@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:layout_marginTop="50dp">
 
     <!-- Titre -->
     <TextView
@@ -15,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Historique"
+        android:textColor="@color/black"
+        style="@style/TitleTextStyle"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center_vertical"
@@ -34,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Filtrer par date"
-            android:backgroundTint="@color/blue"
-            android:textColor="@android:color/black"
+            android:background="@drawable/custom_blue_button_background"
+            android:textColor="@color/white"
             android:layout_marginEnd="8dp" />
 
         <Button
@@ -43,9 +46,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Filtrer par catégorie"
-            android:backgroundTint="@color/green"
-            android:textColor="@android:color/black"
+            android:text="Filtrer par cat"
+            android:background="@drawable/custom_green_button_background"
+
+            android:textColor="@color/white"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 
@@ -55,7 +59,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/titre_transactions"

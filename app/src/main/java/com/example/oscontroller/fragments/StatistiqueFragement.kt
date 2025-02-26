@@ -2,6 +2,7 @@ package com.example.oscontroller.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
-class StatistiqueFragement : Fragment() { // Fixed typo in class name
+class StatistiqueFragement : Fragment() {
 
     private lateinit var barChart: BarChart
 
@@ -23,20 +27,15 @@ class StatistiqueFragement : Fragment() { // Fixed typo in class name
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.graph_layout, container, false)
-
-        // Initialize views using the inflated view
         barChart = view.findViewById(R.id.barChart)
-
         setupBarChart()
+        // Fetch and display data from Firestore
         setDataToChart()
-
         return view
     }
 
     private fun setupBarChart() {
-        // Configure chart appearance
         barChart.setDrawBarShadow(false)
         barChart.setDrawValueAboveBar(true)
         barChart.description.isEnabled = false
@@ -49,8 +48,7 @@ class StatistiqueFragement : Fragment() { // Fixed typo in class name
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f
-        xAxis.labelCount = 7
-
+        // The label count will be adjusted dynamically based on the number of groups later
         // Configure Y axis
         val leftAxis = barChart.axisLeft
         leftAxis.axisMinimum = 0f
@@ -60,52 +58,82 @@ class StatistiqueFragement : Fragment() { // Fixed typo in class name
     }
 
     private fun setDataToChart() {
-        // Sample data - replace with your actual data
-        val revenues = listOf(5000f, 6000f, 5500f, 7000f, 8000f)
-        val expenses = listOf(4000f, 4500f, 5000f, 6000f, 6500f)
-
-        val entriesRevenue = ArrayList<BarEntry>()
-        val entriesExpense = ArrayList<BarEntry>()
-
-        // Create entries
-        for (i in revenues.indices) {
-            entriesRevenue.add(BarEntry(i.toFloat(), revenues[i]))
-            entriesExpense.add(BarEntry(i.toFloat(), expenses[i]))
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) {
+            Log.e("StatistiqueFragment", "User not logged in")
+            return
         }
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(userId).collection("transactions")
+            .get()
+            .addOnSuccessListener { result ->
+                // Use two maps to aggregate revenue and expense amounts by month (format "yyyy-MM")
+                val revenueMap = mutableMapOf<String, Float>()
+                val expenseMap = mutableMapOf<String, Float>()
 
-        // Create datasets
-        val setRevenue = BarDataSet(entriesRevenue, "Revenue").apply {
-            color = ContextCompat.getColor(requireContext(), R.color.green)
-            valueTextColor = Color.BLACK
-            valueTextSize = 12f
-        }
+                for (document in result) {
+                    val transaction = document.data
+                    val dateStr = transaction["date"] as? String ?: continue
+                    // Extract year and month (e.g., "2025-02")
+                    val monthKey = if (dateStr.length >= 7) dateStr.substring(0, 7) else dateStr
+                    val amount = (transaction["amount"] as? Number)?.toFloat() ?: 0f
+                    val type = transaction["is_a"] as? String ?: ""
+                    if (type.equals("Revenu", ignoreCase = true)) {
+                        revenueMap[monthKey] = (revenueMap[monthKey] ?: 0f) + amount
+                    } else if (type.equals("Depence", ignoreCase = true)) {
+                        expenseMap[monthKey] = (expenseMap[monthKey] ?: 0f) + amount
+                    }
+                }
 
-        val setExpense = BarDataSet(entriesExpense, "Expense").apply {
-            color = ContextCompat.getColor(requireContext(), R.color.red)
-            valueTextColor = Color.BLACK
-            valueTextSize = 12f
-        }
+                // Combine keys from both maps and sort them to get consistent groups
+                val allMonths = (revenueMap.keys + expenseMap.keys).toList().sorted()
+                val entriesRevenue = ArrayList<BarEntry>()
+                val entriesExpense = ArrayList<BarEntry>()
 
-        val groupSpace = 0.4f
-        val barSpace = 0.02f
-        val barWidth = 0.3f
+                for ((index, month) in allMonths.withIndex()) {
+                    entriesRevenue.add(BarEntry(index.toFloat(), revenueMap[month] ?: 0f))
+                    entriesExpense.add(BarEntry(index.toFloat(), expenseMap[month] ?: 0f))
+                }
 
-        val data = BarData(setRevenue, setExpense).apply {
-            this.barWidth = barWidth
-        }
+                // Create the datasets for revenue and expense
+                val setRevenue = BarDataSet(entriesRevenue, "Revenue").apply {
+                    color = ContextCompat.getColor(requireContext(), R.color.green)
+                    valueTextColor = Color.BLACK
+                    valueTextSize = 12f
+                }
+                val setExpense = BarDataSet(entriesExpense, "Expense").apply {
+                    color = ContextCompat.getColor(requireContext(), R.color.red)
+                    valueTextColor = Color.BLACK
+                    valueTextSize = 12f
+                }
 
-        barChart.data = data
+                // Configure bar grouping parameters
+                val groupSpace = 0.4f
+                val barSpace = 0.02f
+                val barWidth = 0.3f
 
-        // Modified group bars calculation
-        val groupCount = revenues.size.toFloat()
-        val startPosition = 0f
-        data.groupBars(startPosition, groupSpace, barSpace)
+                val data = BarData(setRevenue, setExpense).apply {
+                    this.barWidth = barWidth
+                }
 
-        // Calculate axis maximum manually if needed
-        val xAxisMaximum = startPosition + data.getGroupWidth(groupSpace, barSpace) * groupCount
-        barChart.xAxis.axisMinimum = startPosition
-        barChart.xAxis.axisMaximum = xAxisMaximum
+                barChart.data = data
 
-        barChart.invalidate()
+                // Group the bars on the chart
+                val groupCount = allMonths.size
+                val startPosition = 0f
+                data.groupBars(startPosition, groupSpace, barSpace)
+                val xAxisMaximum = startPosition + data.getGroupWidth(groupSpace, barSpace) * groupCount
+                barChart.xAxis.axisMinimum = startPosition
+                barChart.xAxis.axisMaximum = xAxisMaximum
+
+                // Optionally, you can set a custom value formatter on the X axis to show the month labels
+                barChart.xAxis.valueFormatter = XAxisValueFormatter(allMonths)
+
+                barChart.notifyDataSetChanged()
+                barChart.invalidate()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StatistiqueFragment", "Error fetching transactions: ${exception.message}")
+            }
     }
 }

@@ -49,7 +49,7 @@ android:background="#FFFFFF">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Date (YYYY-MM-DD)"
-    android:inputType="date"
+    android:inputType="text"
 
     android:layout_marginBottom="16dp"
     android:background="@drawable/edit_text_border_selector"
